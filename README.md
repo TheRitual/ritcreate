@@ -14,10 +14,10 @@ node create-project.mjs
 ritcreate new-project
 ```
 
-### Install and run as `ritcreate` (JSR package @ritual/create)
+### Install and run as `ritcreate` (JSR package @ritual/ritcreate)
 
-- **npm / npx:** `npx jsr:@ritual/create new-project` — creates `./new-project` in the current directory (Windows, Mac, Linux).
-- **Deno:** `deno run -A jsr:@ritual/create new-project` or install globally: `deno install -n ritcreate -g -A jsr:@ritual/create` (use `-A` or at least `--allow-read --allow-write --allow-net`) then `ritcreate new-project`.
+- **npm / npx:** `npx jsr:@ritual/ritcreate new-project` — creates `./new-project` in the current directory (Windows, Mac, Linux).
+- **Deno:** `deno run -A jsr:@ritual/ritcreate new-project` or install globally: `deno install -n ritcreate -g -A jsr:@ritual/ritcreate` (use `-A` or at least `--allow-read --allow-write --allow-net`) then `ritcreate new-project`.
 
 Optional second argument is the output directory; default is `./<monorepo-name>`.
 
@@ -75,9 +75,9 @@ The generator creates a complete Turborepo monorepo with:
 
 ## Publishing to JSR (CI/CD)
 
-The repo is set up to publish the package **@ritual/create** to [JSR](https://jsr.io) via GitHub Actions:
+The repo is set up to publish the package **@ritual/ritcreate** to [JSR](https://jsr.io) via GitHub Actions:
 
-1. Create the package **@ritual/create** on [jsr.io](https://jsr.io/new) and link it to this GitHub repository (package settings → GitHub repository).
+1. Create the package **@ritual/ritcreate** on [jsr.io](https://jsr.io/new) and link it to this GitHub repository (package settings → GitHub repository).
 2. Push to `main` or run the **Publish to JSR** workflow manually; it runs `npx jsr publish` and uses OIDC (no secrets required).
 
 Workflow file: `.github/workflows/publish-jsr.yml`. Package config: `jsr.json`.

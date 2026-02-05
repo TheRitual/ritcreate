@@ -51,7 +51,7 @@ if (isFileUrl && typeof process !== "undefined") {
 } else {
   if (typeof Deno === "undefined") {
     console.error(
-      "Running from a non-file URL is only supported in Deno. Use: npx jsr:@ritual/create",
+      "Running from a non-file URL is only supported in Deno. Use: npx jsr:@ritual/ritcreate",
     );
     process.exit(1);
   }
