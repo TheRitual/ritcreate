@@ -1,21 +1,76 @@
-import { useTranslation } from "react-i18next";
-import { PageTitle } from "@repo/ui/page-title";
-import { ExampleComponent } from "../components/ExampleComponent";
+import { useState } from "react";
+import { Button } from "@repo/ui/button";
+import { Input } from "@repo/ui/input";
 import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
+import type { Theme } from "@repo/ui/theme-types";
+import { getHelloMessage } from "../utils/helloGrpc.js";
 
 const Wrapper = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 20rem;
 `;
 
+const Message = styled.p<{ theme?: Theme }>`
+  color: ${(p) => p.theme?.colors?.text?.primary ?? "#18181b"};
+  font-size: 1rem;
+`;
+
+const ErrorMessage = styled.p<{ theme?: Theme }>`
+  color: ${(p) => p.theme?.colors?.primary?.[500] ?? "#a21caf"};
+  font-size: 0.9375rem;
+`;
+
+type GrpcState = "idle" | "loading" | "success" | "error";
+
 export function HomePage() {
-  const { t } = useTranslation();
+  const theme = useTheme() as Theme | undefined;
+  const [name, setName] = useState<string>("Developer");
+  const [grpcState, setGrpcState] = useState<GrpcState>("idle");
+  const [grpcMessage, setGrpcMessage] = useState<string>("");
+  const [grpcError, setGrpcError] = useState<string>("");
+
+  const fetchGrpcMessage = () => {
+    setGrpcState("loading");
+    setGrpcError("");
+    setGrpcMessage("");
+    getHelloMessage(name)
+      .then((res) => {
+        setGrpcMessage(res.message);
+        setGrpcState("success");
+      })
+      .catch((err) => {
+        setGrpcError(err instanceof Error ? err.message : String(err));
+        setGrpcState("error");
+      });
+  };
 
   return (
     <Wrapper>
-      <PageTitle>{t("home.title")}</PageTitle>
-      <ExampleComponent />
+      <Input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        disabled={grpcState === "loading"}
+      />
+      <Button
+        variant="primary"
+        onClick={fetchGrpcMessage}
+        disabled={grpcState === "loading"}
+      >
+        {grpcState === "loading" ? "Loading…" : "Fetch gRPC message"}
+      </Button>
+      {grpcState === "success" && grpcMessage && (
+        <Message theme={theme}>{grpcMessage}</Message>
+      )}
+      {grpcState === "error" && (
+        <ErrorMessage theme={theme}>
+          gRPC: {grpcError}
+        </ErrorMessage>
+      )}
     </Wrapper>
   );
 }

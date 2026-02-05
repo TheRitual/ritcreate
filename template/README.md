@@ -2,6 +2,10 @@
 
 This Turborepo starter is maintained by the Turborepo core team.
 
+**Requirements:** Node.js >=20.
+
+The repository works without a Git remote; you can run `git init` and use all scripts (install, build, dev, commit) without adding `origin`.
+
 ## Using this example
 
 Run the following command:
@@ -31,6 +35,14 @@ This Turborepo has some additional tools already setup for you:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+
+### Health check
+
+From the repo root, `npm run health-check` verifies the API is up: HTTP `/health` and gRPC `Health.Check` on the configured ports. Requires the API to be running. Environment: `API_BASE_URL`, `GRPC_HEALTH_PORT`, `GRPC_HEALTH_HOST`.
+
+### Production Docker
+
+`npm run prod` builds and starts all services with `docker-compose.prod.yml` (API, Web, Envoy gRPC-Web, Postgres). Only the web app is exposed (default port 8080). Stop with `npm run prod:down`.
 
 ### Run (built stack)
 

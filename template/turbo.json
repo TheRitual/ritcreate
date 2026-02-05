@@ -3,25 +3,42 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", "generated/**"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        "dist/**",
+        "generated/**"
+      ],
       "env": [
         "DATABASE_URL",
         "ADMIN_EMAIL",
         "PORT",
+        "GRPC_HEALTH_PORT",
+        "GRPC_HELLO_PORT",
         "VITE_TRANSLATIONS_PATH",
-        "VITE_API_URL"
+        "VITE_API_URL",
+        "VITE_GRPC_WEB_URL"
       ]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": [
+        "^lint"
+      ]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": [
+        "^check-types"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "dev": {
       "cache": false,

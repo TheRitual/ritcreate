@@ -12,7 +12,11 @@
   },
   "exports": {
     "./generated": "./generated/index.ts",
-    "./proto": "./proto"
+    "./proto": "./proto",
+    "./generated-web": "./generated-web/index.ts",
+    "./generated-web/hello": "./generated-web/hello.ts",
+    "./generated/hello": "./generated/hello.ts",
+    "./generated/health": "./generated/health.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -24,6 +28,11 @@
   },
   "files": [
     "proto",
-    "generated"
-  ]
+    "generated",
+    "generated-web"
+  ],
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.4.0",
+    "browser-headers": "^0.4.1"
+  }
 }

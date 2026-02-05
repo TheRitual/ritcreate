@@ -12,3 +12,19 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  envoy-grpc-web:
+    image: envoyproxy/envoy:v1.31-latest
+    volumes:
+      - ./docker/envoy-grpc-web.dev.yml:/etc/envoy/envoy.yaml:ro
+    command: ["-c", "/etc/envoy/envoy.yaml", "-l", "info"]
+    network_mode: host
+
+  grpcui:
+    image: fullstorydev/grpcui:latest
+    entrypoint: ["/bin/grpcui"]
+    network_mode: host
+    volumes:
+      - ./packages/protos/proto:/protos:ro
+    command: ["-plaintext", "-open-browser=false", "-bind", "0.0.0.0", "-port", "8180", "-proto", "/protos/hello.proto", "-import-path", "/protos", "127.0.0.1:50052"]
+    restart: on-failure

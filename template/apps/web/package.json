@@ -24,7 +24,9 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-i18next": "^15.1.1",
-    "react-router-dom": "^7.0.1"
+    "react-router-dom": "^7.0.1",
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@repo/protos": "*"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

@@ -11,7 +11,7 @@ RUN npm install
 FROM base AS builder
 COPY --from=deps /repo/node_modules ./node_modules
 COPY . .
-RUN npm run build --workspace=api
+RUN npm run build --workspace=./apps/api
 
 FROM base AS runner
 ENV NODE_ENV=production
@@ -25,4 +25,5 @@ COPY --from=builder /repo/package.json ./package.json
 WORKDIR /repo/apps/api
 EXPOSE 4000
 EXPOSE 50051
+EXPOSE 50052
 CMD ["node", "app.js"]

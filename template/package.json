@@ -14,7 +14,12 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "release": "multi-semantic-release"
+    "release": "multi-semantic-release",
+    "storybook": "turbo run storybook",
+    "build-storybook": "turbo run build-storybook",
+    "prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up -d",
+    "prod:down": "docker compose -f docker-compose.prod.yml down",
+    "health-check": "node scripts/health-check.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx,js,json,md}": "prettier --write"
@@ -32,10 +37,12 @@
     "lint-staged": "^15.4.3",
     "prettier": "^3.7.4",
     "turbo": "^2.8.3",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "@grpc/grpc-js": "^1.12.4",
+    "@grpc/proto-loader": "^0.7.13"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "packageManager": "npm@11.6.2",
   "workspaces": [
