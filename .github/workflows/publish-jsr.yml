@@ -13,5 +13,9 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          check-latest: true
       - name: Publish package
         run: npx jsr publish

@@ -13,7 +13,7 @@
     "ritcreate": "./create-project.mjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "packageManager": "npm@11.6.2",
   "devDependencies": {
