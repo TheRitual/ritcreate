@@ -1,6 +1,6 @@
 {
   "name": "@ritual/ritcreate",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Template generator for NestJS + React + gRPC monorepo projects",
   "type": "module",
