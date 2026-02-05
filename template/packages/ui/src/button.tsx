@@ -39,14 +39,14 @@ const StyledButton = styled.button<{
     p.size === "sm" ? "0.875rem" : p.size === "lg" ? "1.125rem" : "1rem"};
   background: ${(p) =>
     p.variant === "primary"
-      ? (p.theme?.colors?.primary?.[500] ?? "#ef4444")
+      ? (p.theme?.colors?.primary?.[500] ?? "#6b5b95")
       : p.variant === "outline"
         ? "transparent"
-        : (p.theme?.colors?.glass?.light ?? "rgba(255,255,255,0.4)")};
+        : (p.theme?.colors?.glass?.light ?? "rgba(255,255,255,0.5)")};
   border: 2px solid
     ${(p) =>
       p.variant === "outline"
-        ? (p.theme?.colors?.primary?.[500] ?? "#ef4444")
+        ? (p.theme?.colors?.primary?.[500] ?? "#6b5b95")
         : "transparent"};
   color: ${(p) =>
     p.variant === "primary"

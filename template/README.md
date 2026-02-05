@@ -2,7 +2,7 @@
 
 This Turborepo starter is maintained by the Turborepo core team.
 
-**Requirements:** Node.js >=20.
+**Requirements:** Node.js >=22 (LTS). Use the repo’s `.nvmrc` with `nvm use` if you use nvm.
 
 The repository works without a Git remote; you can run `git init` and use all scripts (install, build, dev, commit) without adding `origin`.
 

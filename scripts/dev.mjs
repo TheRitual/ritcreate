@@ -3,8 +3,7 @@
 import { spawn } from "node:child_process";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { existsSync } from "node:fs";
-
+import { existsSync, rmSync } from "node:fs";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const createScript = join(root, "create-project.mjs");
@@ -24,17 +23,33 @@ function run(name, args, opts) {
   });
 }
 
-async function main() {
-  const hasProject = existsSync(join(devProjectPath, "package.json"));
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-  if (!hasProject) {
-    console.log("Creating project with --yes into .ritcreate-dev...\n");
-    await run(node, [createScript, "ritcreate-dev", devProjectPath, "--yes"], { cwd: root });
-  } else {
-    console.log("Using existing .ritcreate-dev. Starting dev stack...\n");
+async function main() {
+  if (existsSync(devProjectPath)) {
+    console.log("Removing existing .ritcreate-dev...\n");
+    rmSync(devProjectPath, { recursive: true });
   }
 
-  console.log("Starting full dev stack (Docker + API + Web). Press Ctrl+C to stop.\n");
+  console.log("Creating project with --yes into .ritcreate-dev...\n");
+  await run(node, [createScript, "ritcreate-dev", devProjectPath, "--yes"], { cwd: root });
+
+  const turboCache = join(devProjectPath, "node_modules", ".cache", "turbo");
+  if (existsSync(turboCache)) {
+    rmSync(turboCache, { recursive: true });
+  }
+  console.log("\nBuilding project (so dist/ exists before dev)...\n");
+  await run("npm", ["run", "build"], { cwd: devProjectPath });
+
+  console.log("\nStarting dev stack in 3 seconds...");
+  await delay(3000);
+
+  if (existsSync(turboCache)) {
+    rmSync(turboCache, { recursive: true });
+  }
+  console.log("\nStarting full dev stack. Press Ctrl+C to stop.\n");
   await run("npm", ["run", "dev"], { cwd: devProjectPath });
 }
 

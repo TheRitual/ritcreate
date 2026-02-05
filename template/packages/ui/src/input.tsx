@@ -19,7 +19,7 @@ const StyledInput = styled.input<{ theme: Theme }>`
   }
   &:focus {
     outline: none;
-    border-color: ${(p) => p.theme?.colors?.primary?.[500] ?? "#ef4444"};
+    border-color: ${(p) => p.theme?.colors?.primary?.[500] ?? "#6b5b95"};
   }
   &:disabled {
     opacity: 0.6;

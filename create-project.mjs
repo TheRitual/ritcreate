@@ -325,7 +325,7 @@ async function main() {
     }
   }
 
-  log('Processing template files...', colors.cyan, icons.gear);
+  log(' Processing template files...', colors.cyan, icons.gear);
   processAllFiles(config.projectPath);
 
   const gitignorePath = join(config.projectPath, '.gitignore');

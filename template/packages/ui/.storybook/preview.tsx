@@ -4,13 +4,15 @@ import type { Theme } from "../src/theme-types";
 
 const defaultTheme: Theme = {
   colors: {
-    primary: { 500: "#ef4444", 600: "#dc2626" },
-    neutral: { 300: "#d4d4d4" },
-    text: { primary: "#1f2937", muted: "#6b7280" },
+    primary: { 500: "#6b5b95", 600: "#5a4a7d" },
+    accent: { 500: "#e091ad", 600: "#d47a9b" },
+    neutral: { 300: "#c4c8d4" },
+    text: { primary: "#2d3142", muted: "#6b7280" },
+    background: "#eef1f6",
     glass: {
-      light: "rgba(255,255,255,0.4)",
-      medium: "rgba(255,255,255,0.5)",
-      dark: "rgba(0,0,0,0.1)",
+      light: "rgba(255,255,255,0.5)",
+      medium: "rgba(255,255,255,0.6)",
+      dark: "rgba(107,91,149,0.08)",
     },
   },
   borderRadius: {

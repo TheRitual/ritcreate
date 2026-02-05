@@ -18,13 +18,15 @@ const base = {
 export const lightTheme: UITheme = {
   ...base,
   colors: {
-    primary: { 500: "#ef4444", 600: "#dc2626" },
-    neutral: { 300: "#d4d4d4" },
-    text: { primary: "#1f2937", muted: "#6b7280" },
+    primary: { 500: "#6b5b95", 600: "#5a4a7d" },
+    accent: { 500: "#e091ad", 600: "#d47a9b" },
+    neutral: { 300: "#c4c8d4" },
+    text: { primary: "#2d3142", muted: "#6b7280" },
+    background: "#eef1f6",
     glass: {
-      light: "rgba(255,255,255,0.4)",
-      medium: "rgba(255,255,255,0.5)",
-      dark: "rgba(0,0,0,0.1)",
+      light: "rgba(255,255,255,0.5)",
+      medium: "rgba(255,255,255,0.6)",
+      dark: "rgba(107,91,149,0.08)",
     },
   },
 };
@@ -32,13 +34,15 @@ export const lightTheme: UITheme = {
 export const darkTheme: UITheme = {
   ...base,
   colors: {
-    primary: { 500: "#f87171", 600: "#ef4444" },
-    neutral: { 300: "#525252" },
-    text: { primary: "#f5f5f5", muted: "#a3a3a3" },
+    primary: { 500: "#8b7bb5", 600: "#7a6aa3" },
+    accent: { 500: "#e8a0b8", 600: "#e091ad" },
+    neutral: { 300: "#4a4d5a" },
+    text: { primary: "#e8eaf0", muted: "#9ca3b4" },
+    background: "#1a1d26",
     glass: {
-      light: "rgba(0,0,0,0.2)",
-      medium: "rgba(0,0,0,0.3)",
-      dark: "rgba(255,255,255,0.05)",
+      light: "rgba(45,49,66,0.4)",
+      medium: "rgba(45,49,66,0.5)",
+      dark: "rgba(139,123,181,0.12)",
     },
   },
 };

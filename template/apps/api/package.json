@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "nest build",
-    "dev": "nest start --watch",
-    "start": "node app.js",
+    "dev": "node scripts/run-dev.mjs",
+    "start": "node --env-file=../../.env app.js",
     "lint": "eslint --max-warnings 0",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
@@ -34,6 +34,8 @@
     "eslint": "^9.39.1",
     "typescript": "5.9.2",
     "tsx": "^4.19.2",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.0",
+    "concurrently": "^9.1.0",
+    "wait-on": "^8.0.1"
   }
 }

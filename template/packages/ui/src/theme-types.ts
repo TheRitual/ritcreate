@@ -1,7 +1,9 @@
 export interface ThemeColors {
   primary: Record<string, string>;
+  accent: Record<string, string>;
   neutral: Record<string, string>;
   text: { primary: string; muted: string };
+  background: string;
   glass: { light: string; medium: string; dark: string };
 }
 

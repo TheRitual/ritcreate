@@ -8,8 +8,8 @@ import { AppModule } from "./app.module.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const distProtoDir = join(__dirname, "proto");
-const monorepoProtoDir = join(__dirname, "..", "..", "..", "packages", "protos", "proto");
+const distProtoDir = join(__dirname, "..", "..", "..", "proto");
+const monorepoProtoDir = join(__dirname, "..", "..", "..", "..", "..", "..", "packages", "protos", "proto");
 const protoDir = existsSync(join(distProtoDir, "health.proto"))
   ? distProtoDir
   : monorepoProtoDir;
@@ -37,6 +37,11 @@ async function bootstrap() {
   await app.startAllMicroservices();
   const port = Number(process.env["PORT"]) || 4000;
   await app.listen(port, "0.0.0.0");
+  console.log(`API listening on http://0.0.0.0:${port}`);
+  console.log(`gRPC health on port ${grpcHealthPort}, gRPC hello on port ${grpcHelloPort}`);
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+  console.error("API failed to start:", err);
+  process.exit(1);
+});

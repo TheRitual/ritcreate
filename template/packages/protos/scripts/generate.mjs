@@ -59,11 +59,10 @@ try {
 }
 
 const baseNames = protoFiles.map((f) => path.basename(f, ".proto"));
-const indexLines =
-  baseNames.length === 1
-    ? baseNames.map((b) => `export * from "./${b}.js";`).join("\n")
-    : baseNames.map((b) => `export * from "./${b}.js";`).join("\n");
-fs.writeFileSync(path.join(outDir, "index.ts"), indexLines + "\n");
+fs.writeFileSync(
+  path.join(outDir, "index.ts"),
+  `export * from "./${baseNames[0]}.js";\n`,
+);
 
 const outDirWeb = path.join(root, "generated-web");
 if (!fs.existsSync(outDirWeb)) {
@@ -85,5 +84,7 @@ try {
 } catch {
   process.exit(1);
 }
-const indexLinesWeb = baseNames.map((b) => `export * from "./${b}.js";`).join("\n");
-fs.writeFileSync(path.join(outDirWeb, "index.ts"), indexLinesWeb + "\n");
+fs.writeFileSync(
+  path.join(outDirWeb, "index.ts"),
+  `export * from "./${baseNames[0]}.js";\n`,
+);

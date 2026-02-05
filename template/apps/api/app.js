@@ -1,1 +1,1 @@
-import "./dist/main.js";
+import "./dist/apps/api/src/main.js";

@@ -1,0 +1,9 @@
+# Turbo
+.turbo/
+
+# Build
+dist/
+
+# Debug and logs
+*.log
+npm-debug.log*

@@ -3,7 +3,6 @@ dist/
 build/
 out/
 generated/
-.next/
 
 # Dependencies
 node_modules/

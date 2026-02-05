@@ -5,10 +5,13 @@ import type {
   HealthCheckResponse,
 } from "@repo/protos/generated";
 
+function GrpcHealthCheck(): MethodDecorator {
+  return GrpcMethod("Health", "Check") as MethodDecorator;
+}
+
 @Controller()
 export class HealthController {
-  // @ts-expect-error Nest GrpcMethod decorator type mismatch with TS 5
-  @GrpcMethod("Health", "Check")
+  @GrpcHealthCheck()
   check(_data: HealthCheckRequest): HealthCheckResponse {
     return { status: 1 };
   }

@@ -4,9 +4,19 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@repo/protos/generated/*": ["../../packages/protos/generated/*"]
-    }
+      "@repo/protos/generated/*": [
+        "../../packages/protos/generated/*"
+      ]
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-  "include": ["src", "../../packages/protos/generated"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src",
+    "../../packages/protos/generated"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

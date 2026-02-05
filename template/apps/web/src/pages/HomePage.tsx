@@ -21,7 +21,7 @@ const Message = styled.p<{ theme?: Theme }>`
 `;
 
 const ErrorMessage = styled.p<{ theme?: Theme }>`
-  color: ${(p) => p.theme?.colors?.primary?.[500] ?? "#a21caf"};
+  color: ${(p) => p.theme?.colors?.accent?.[500] ?? "#e091ad"};
   font-size: 0.9375rem;
 `;
 
