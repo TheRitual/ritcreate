@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "create": "node create-project.mjs",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "verify-template": "node scripts/verify-template.mjs"
   },
   "bin": {
     "ritcreate": "./create-project.mjs"

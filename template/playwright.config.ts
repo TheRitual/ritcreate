@@ -15,7 +15,7 @@ export default defineConfig({
   webServer: process.env.CI
     ? undefined
     : {
-        command: "npx turbo run dev --filter=web",
+        command: "npx turbo run dev --filter=./apps/web",
         url: "http://localhost:3000",
         reuseExistingServer: !process.env.CI,
         timeout: 60000,
