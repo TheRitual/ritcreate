@@ -1,0 +1,45 @@
+{
+  "name": "{{REPO_NAME}}",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "docker compose -f docker-compose.dev.yml up -d && turbo run dev",
+    "run": "turbo run start",
+    "build:run": "npm run build && npm run run",
+    "test": "turbo run test",
+    "test:e2e": "playwright test",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\"",
+    "check-types": "turbo run check-types",
+    "prepare": "husky",
+    "release": "multi-semantic-release"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,json,md}": "prettier --write"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@semantic-release/commit-analyzer": "^11.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^11.0.0",
+    "@semantic-release/release-notes-generator": "^12.0.0",
+    "multi-semantic-release": "^3.1.0",
+    "semantic-release": "^24.2.0",
+    "wait-on": "^8.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.7.4",
+    "turbo": "^2.8.3",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

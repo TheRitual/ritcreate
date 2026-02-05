@@ -1,0 +1,17 @@
+{
+  "name": "@ritual/ritcreate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Template generator for NestJS + React + gRPC monorepo projects",
+  "type": "module",
+  "scripts": {
+    "create": "node create-project.mjs"
+  },
+  "bin": {
+    "ritcreate": "./create-project.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@11.6.2"
+}

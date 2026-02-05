@@ -1,0 +1,13 @@
+{
+  "name": "@repo/vitest-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./vitest.config.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "vitest": "^2.1.0"
+  }
+}

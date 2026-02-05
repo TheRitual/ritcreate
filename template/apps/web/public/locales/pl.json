@@ -1,0 +1,79 @@
+{
+  "about": {
+    "ourMission": "Nasza misja",
+    "ourMissionText": "Jesteśmy zobowiązani do produkcji najwyższej jakości kimchi.",
+    "ourProducts": "Nasze produkty",
+    "ourProductsText": "Od łagodnych po ogniste kimchi.",
+    "ourStory": "Nasza historia",
+    "ourStoryText": "Dziki Kisz narodził się z pasji do autentycznej kuchni koreańskiej.",
+    "qualityPromise": "Obietnica jakości",
+    "title": "O Dziki Kisz"
+  },
+  "auth": {
+    "adminPanel": "Panel administratora",
+    "login": "Zaloguj się",
+    "loginError": "Nieprawidłowy email lub hasło",
+    "logout": "Wyloguj się",
+    "password": "Hasło",
+    "welcome": "Witamy"
+  },
+  "cart": {
+    "checkout": "Do kasy",
+    "continueShopping": "Kontynuuj zakupy",
+    "emptyText": "Koszyk jest pusty.",
+    "emptyTitle": "Koszyk jest pusty",
+    "remove": "Usuń",
+    "subtotal": "Suma",
+    "title": "Koszyk",
+    "total": "Razem"
+  },
+  "common": {
+    "addToCart": "Dodaj do koszyka",
+    "category": "Kategoria",
+    "email": "Email",
+    "loading": "Ładowanie...",
+    "message": "Wiadomość",
+    "name": "Nazwa",
+    "price": "Cena",
+    "quantity": "Ilość",
+    "search": "Szukaj...",
+    "sendMessage": "Wyślij",
+    "subject": "Temat",
+    "viewDetails": "Szczegóły",
+    "weight": "Waga"
+  },
+  "contact": {
+    "getInTouch": "Skontaktuj się",
+    "sendUsMessage": "Wyślij wiadomość",
+    "thankYouMessage": "Dziękujemy za wiadomość!",
+    "title": "Kontakt"
+  },
+  "footer": {
+    "allRightsReserved": "© 2024 Dziki Kisz. Wszystkie prawa zastrzeżone.",
+    "contactInfo": "Kontakt",
+    "quickLinks": "Linki",
+    "tagline": "Autentyczne koreańskie kimchi."
+  },
+  "home": {
+    "featuredProducts": "Polecane",
+    "shopNow": "Kup teraz",
+    "subtitle": "Autentyczne koreańskie kimchi",
+    "title": "Witamy w Dziki Kisz"
+  },
+  "navigation": {
+    "about": "O nas",
+    "contact": "Kontakt",
+    "home": "Strona główna",
+    "products": "Produkty"
+  },
+  "productDetail": {
+    "productAddedToCart": "Dodano do koszyka!",
+    "spiceLevelOutOf": "Ostrość: {{level}}/5",
+    "thisProductOutOfStock": "Niedostępny."
+  },
+  "products": {
+    "noProductsFound": "Brak produktów.",
+    "searchPlaceholder": "Szukaj...",
+    "title": "Nasze produkty"
+  }
+}

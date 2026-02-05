@@ -1,0 +1,12 @@
+{
+  "extends": "@repo/typescript-config/nest.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@repo/protos/generated/*": ["../../packages/protos/generated/*"]
+    }
+  },
+  "include": ["src", "../../packages/protos/generated"],
+  "exclude": ["node_modules", "dist"]
+}

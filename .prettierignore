@@ -1,0 +1,25 @@
+# Build outputs
+dist/
+build/
+out/
+generated/
+.next/
+
+# Dependencies
+node_modules/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Deploy artifacts
+deploy-api/
+deploy-web/
+
+# Turbo
+.turbo/
+
+# Misc
+coverage/
+.DS_Store

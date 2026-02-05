@@ -1,0 +1,29 @@
+{
+  "name": "@repo/protos",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generate.mjs",
+    "generate": "node scripts/generate.mjs",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "test": "echo 0"
+  },
+  "exports": {
+    "./generated": "./generated/index.ts",
+    "./proto": "./proto"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "eslint": "^9.39.1",
+    "grpc-tools": "^1.12.4",
+    "ts-proto": "^2.6.0",
+    "typescript": "5.9.2"
+  },
+  "files": [
+    "proto",
+    "generated"
+  ]
+}

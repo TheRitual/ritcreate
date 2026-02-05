@@ -1,0 +1,79 @@
+{
+  "about": {
+    "ourMission": "Our Mission",
+    "ourMissionText": "We are committed to producing the highest quality kimchi using traditional Korean fermentation methods.",
+    "ourProducts": "Our Products",
+    "ourProductsText": "From mild to fiery hot kimchi, we offer a range to suit every palate.",
+    "ourStory": "Our Story",
+    "ourStoryText": "Dziki Kisz was born from a passion for authentic Korean cuisine.",
+    "qualityPromise": "Quality Promise",
+    "title": "About Dziki Kisz"
+  },
+  "auth": {
+    "adminPanel": "Admin Panel",
+    "login": "Login",
+    "loginError": "Invalid email or password",
+    "logout": "Logout",
+    "password": "Password",
+    "welcome": "Welcome"
+  },
+  "cart": {
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "emptyText": "Your cart is empty. Start shopping!",
+    "emptyTitle": "Your cart is empty",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "title": "Shopping Cart",
+    "total": "Total"
+  },
+  "common": {
+    "addToCart": "Add to Cart",
+    "category": "Category",
+    "email": "Email",
+    "loading": "Loading...",
+    "message": "Message",
+    "name": "Name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "search": "Search...",
+    "sendMessage": "Send Message",
+    "subject": "Subject",
+    "viewDetails": "View Details",
+    "weight": "Weight"
+  },
+  "contact": {
+    "getInTouch": "Get in Touch",
+    "sendUsMessage": "Send us a Message",
+    "thankYouMessage": "Thank you for your message!",
+    "title": "Contact Us"
+  },
+  "footer": {
+    "allRightsReserved": "© 2024 Dziki Kisz. All rights reserved.",
+    "contactInfo": "Contact Info",
+    "quickLinks": "Quick Links",
+    "tagline": "Authentic Korean Kimchi delivered fresh."
+  },
+  "home": {
+    "featuredProducts": "Featured Products",
+    "shopNow": "Shop Now",
+    "subtitle": "Authentic Korean Kimchi - Wild, Fresh, and Delicious",
+    "title": "Welcome to Dziki Kisz"
+  },
+  "navigation": {
+    "about": "About",
+    "contact": "Contact",
+    "home": "Home",
+    "products": "Products"
+  },
+  "productDetail": {
+    "productAddedToCart": "Product added to cart!",
+    "spiceLevelOutOf": "Spice Level: {{level}}/5",
+    "thisProductOutOfStock": "Out of stock."
+  },
+  "products": {
+    "noProductsFound": "No products found.",
+    "searchPlaceholder": "Search products...",
+    "title": "Our Products"
+  }
+}

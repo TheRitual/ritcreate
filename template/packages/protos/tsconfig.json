@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "noEmit": true
+  },
+  "include": ["placeholder.ts", "generated"],
+  "exclude": ["node_modules"]
+}

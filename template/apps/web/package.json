@@ -1,0 +1,41 @@
+{
+  "name": "{{SCOPE}}/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "node app.js",
+    "preview": "vite preview",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@repo/ui": "*",
+    "axios": "^1.7.7",
+    "i18next": "^24.2.0",
+    "i18next-browser-languagedetector": "^8.0.1",
+    "i18next-http-backend": "^3.0.1",
+    "js-cookie": "^3.0.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-i18next": "^15.1.1",
+    "react-router-dom": "^7.0.1"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.39.1",
+    "jsdom": "^25.0.1",
+    "typescript": "5.9.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.0"
+  }
+}
