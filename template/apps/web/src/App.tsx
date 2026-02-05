@@ -1,17 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
-import { AuthProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
-import { Header } from "./components/Layout/Header";
-import { Footer } from "./components/Layout/Footer";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { HomePage } from "./pages/HomePage";
-import { ProductsPage } from "./pages/ProductsPage";
-import { ProductDetailPage } from "./pages/ProductDetailPage";
-import { CartPage } from "./pages/CartPage";
-import { AboutPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
-import { AdminPage } from "./pages/AdminPage";
 import styled from "@emotion/styled";
 
 const AppContainer = styled.div`
@@ -28,28 +18,16 @@ const Main = styled.main`
 function App() {
   return (
     <ThemeContextProvider>
-      <AuthProvider>
-        <CartProvider>
-          <GlobalStyles />
-          <Router>
-            <AppContainer>
-              <Header />
-              <Main>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/products" element={<ProductsPage />} />
-                  <Route path="/products/:id" element={<ProductDetailPage />} />
-                  <Route path="/cart" element={<CartPage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/contact" element={<ContactPage />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                </Routes>
-              </Main>
-              <Footer />
-            </AppContainer>
-          </Router>
-        </CartProvider>
-      </AuthProvider>
+      <GlobalStyles />
+      <Router>
+        <AppContainer>
+          <Main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+          </Main>
+        </AppContainer>
+      </Router>
     </ThemeContextProvider>
   );
 }
