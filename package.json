@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "create": "node create-project.mjs",
+    "dev": "node scripts/dev.mjs",
     "release": "semantic-release",
     "verify-template": "node scripts/verify-template.mjs"
   },

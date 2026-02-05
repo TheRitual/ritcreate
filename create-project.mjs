@@ -138,8 +138,12 @@ function runCommand(command, args, cwd, silent = false) {
 }
 
 async function main() {
-  const cliProjectName = process.argv[2];
-  const cliProjectPath = process.argv[3];
+  const argv = process.argv.slice(2);
+  const yesIndex = argv.findIndex((a) => a === '--yes' || a === '-y');
+  const yesMode = yesIndex !== -1;
+  if (yesMode) argv.splice(yesIndex, 1);
+  const cliProjectName = argv[0];
+  const cliProjectPath = argv[1];
 
   console.clear();
   log(`${icons.rocket} Nest + React + gRPC Project Generator`, colors.cyan, '');
@@ -151,9 +155,19 @@ async function main() {
     process.exit(1);
   }
 
+  function ask(prompt, defaultVal = '') {
+    if (yesMode) return Promise.resolve(defaultVal);
+    return question(prompt).then((a) => (a.trim() === '' ? defaultVal : a));
+  }
+
   let repoName;
   let fullProjectPath;
-  if (cliProjectName !== undefined && cliProjectName.trim() !== '') {
+  if (yesMode) {
+    repoName = cliProjectName?.trim() || 'ritcreate-dev';
+    fullProjectPath = cliProjectPath?.trim()
+      ? resolve(cliProjectPath.trim())
+      : resolve(__dirname, '.ritcreate-dev');
+  } else if (cliProjectName !== undefined && cliProjectName.trim() !== '') {
     repoName = cliProjectName.trim();
     const defaultPath = cliProjectPath !== undefined && cliProjectPath.trim() !== ''
       ? resolve(cliProjectPath.trim())
@@ -177,7 +191,7 @@ async function main() {
     process.exit(1);
   }
 
-  const scope = await question(`${colors.cyan}${icons.package} Package scope${colors.reset} (e.g., @myorg): `);
+  const scope = await ask(`${colors.cyan}${icons.package} Package scope${colors.reset} (e.g., @myorg): `, '@repo');
   if (!scope.trim()) {
     log('Package scope is required', colors.red, icons.cross);
     process.exit(1);
@@ -186,32 +200,38 @@ async function main() {
   log('\n', colors.reset, '');
   log('Configuration options:', colors.bright, icons.gear);
 
-  const useDatabase = (await question(`  ${colors.yellow}${icons.database} Use database?${colors.reset} (y/n) [y]: `)) || 'y';
-  const useStorybook = (await question(`  ${colors.yellow}${icons.test} Install Storybook?${colors.reset} (y/n) [y]: `)) || 'y';
-  const usePlaywright = (await question(`  ${colors.yellow}${icons.test} Install Playwright?${colors.reset} (y/n) [y]: `)) || 'y';
-  const useHusky = (await question(`  ${colors.yellow}${icons.lock} Setup Husky?${colors.reset} (y/n) [y]: `)) || 'y';
-  const useGit = (await question(`  ${colors.yellow}${icons.git} Initialize Git?${colors.reset} (y/n) [y]: `)) || 'y';
+  const useDatabase = (await ask(`  ${colors.yellow}${icons.database} Use database?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const useStorybook = (await ask(`  ${colors.yellow}${icons.test} Install Storybook?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const usePlaywright = (await ask(`  ${colors.yellow}${icons.test} Install Playwright?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const useHusky = (await ask(`  ${colors.yellow}${icons.lock} Setup Husky?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const useGit = (await ask(`  ${colors.yellow}${icons.git} Initialize Git?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
 
   let gitRemote = '';
   if (useGit.toLowerCase() === 'y') {
-    gitRemote = await question(`  ${colors.yellow}${icons.git} Git remote URL${colors.reset} (optional, press Enter to skip): `);
+    gitRemote = await ask(`  ${colors.yellow}${icons.git} Git remote URL${colors.reset} (optional, press Enter to skip): `, '');
   }
 
   log('\n', colors.reset, '');
   log('Docker configuration:', colors.bright, icons.docker);
 
-  const useDockerDB = useDatabase.toLowerCase() === 'y' 
-    ? ((await question(`  ${colors.yellow}${icons.docker} Docker for database?${colors.reset} (y/n) [y]: `)) || 'y')
+  const useDockerDB = useDatabase.toLowerCase() === 'y'
+    ? ((await ask(`  ${colors.yellow}${icons.docker} Docker for database?${colors.reset} (y/n) [y]: `, 'y')) || 'y')
     : 'n';
-  
-  const useDockerProd = (await question(`  ${colors.yellow}${icons.docker} Production Docker images?${colors.reset} (y/n) [y]: `)) || 'y';
+
+  const useDockerProd = (await ask(`  ${colors.yellow}${icons.docker} Production Docker images?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
 
   log('\n', colors.reset, '');
   log('Testing setup:', colors.bright, icons.test);
 
-  const testApi = (await question(`  ${colors.yellow}${icons.test} Tests for API?${colors.reset} (y/n) [y]: `)) || 'y';
-  const testWeb = (await question(`  ${colors.yellow}${icons.test} Tests for Web?${colors.reset} (y/n) [y]: `)) || 'y';
-  const testUI = (await question(`  ${colors.yellow}${icons.test} Tests for UI package?${colors.reset} (y/n) [n]: `)) || 'n';
+  const testApi = (await ask(`  ${colors.yellow}${icons.test} Tests for API?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const testWeb = (await ask(`  ${colors.yellow}${icons.test} Tests for Web?${colors.reset} (y/n) [y]: `, 'y')) || 'y';
+  const testUI = (await ask(`  ${colors.yellow}${icons.test} Tests for UI package?${colors.reset} (y/n) [n]: `, 'n')) || 'n';
+
+  const confirm = await ask(`\n${colors.yellow}${icons.warning} Proceed with project creation?${colors.reset} (y/n) [y]: `, 'y');
+  if (confirm.toLowerCase() !== 'y' && confirm.trim() !== '') {
+    log('Project creation cancelled', colors.yellow, icons.warning);
+    process.exit(0);
+  }
 
   const config = {
     repoName: repoName.trim(),
@@ -246,10 +266,12 @@ async function main() {
   log(`  Docker DB: ${config.useDockerDB ? 'Yes' : 'No'}`, config.useDockerDB ? colors.green : colors.red, '');
   log(`  Docker Prod: ${config.useDockerProd ? 'Yes' : 'No'}`, config.useDockerProd ? colors.green : colors.red, '');
 
-  const confirm = await question(`\n${colors.yellow}${icons.warning} Proceed with project creation?${colors.reset} (y/n) [y]: `);
-  if (confirm.toLowerCase() !== 'y' && confirm.trim() !== '') {
-    log('Project creation cancelled', colors.yellow, icons.warning);
-    process.exit(0);
+  if (!yesMode) {
+    const confirmProceed = await question(`\n${colors.yellow}${icons.warning} Proceed with project creation?${colors.reset} (y/n) [y]: `);
+    if (confirmProceed.toLowerCase() !== 'y' && confirmProceed.trim() !== '') {
+      log('Project creation cancelled', colors.yellow, icons.warning);
+      process.exit(0);
+    }
   }
 
   log('\n', colors.reset, '');

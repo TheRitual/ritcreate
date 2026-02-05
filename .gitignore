@@ -16,3 +16,6 @@ npm-debug.log*
 .idea/
 *.swp
 *.swo
+
+# Dev run: created project for full-stack dev check
+.ritcreate-dev/
