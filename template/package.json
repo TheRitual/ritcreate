@@ -19,7 +19,8 @@
     "build-storybook": "turbo run build-storybook",
     "prod": "docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up -d",
     "prod:down": "docker compose -f docker-compose.prod.yml down",
-    "health-check": "node scripts/health-check.mjs"
+    "health-check": "node scripts/health-check.mjs",
+    "dev:app": "turbo run dev"
   },
   "lint-staged": {
     "*.{ts,tsx,js,json,md}": "prettier --write"

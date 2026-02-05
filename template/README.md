@@ -20,11 +20,11 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `api`: NestJS API with gRPC (health + hello)
+- `web`: Vite + React app (input, button, gRPC response in a glassmorphism container)
+- `@repo/ui`: shared UI (Button, Input, GlassPanel)
+- `@repo/protos`: shared gRPC protos and generated clients
+- `@repo/eslint-config`, `@repo/typescript-config`: shared configs
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
@@ -35,6 +35,11 @@ This Turborepo has some additional tools already setup for you:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+
+### Dev
+
+- **`npm run dev`** – Starts Docker services (Postgres, Envoy gRPC-Web, gRPCui) and runs the API and Web app in watch mode. Use this to run the full stack and open the app (e.g. http://localhost:3000).
+- **`npm run dev:app`** – Runs only the API and Web app (`turbo run dev`). Use when Docker is already running or for a quick check without Docker.
 
 ### Health check
 

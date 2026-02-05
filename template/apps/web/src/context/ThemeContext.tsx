@@ -18,7 +18,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-const STORAGE_KEY = "dziki-kisz-theme";
+const STORAGE_KEY = "app-theme";
 
 function getInitialMode(): ThemeMode {
   if (typeof window === "undefined") return "light";

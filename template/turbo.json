@@ -20,7 +20,6 @@
         "PORT",
         "GRPC_HEALTH_PORT",
         "GRPC_HELLO_PORT",
-        "VITE_TRANSLATIONS_PATH",
         "VITE_API_URL",
         "VITE_GRPC_WEB_URL"
       ]

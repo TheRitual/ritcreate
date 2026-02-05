@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@repo/ui/button";
 import { Input } from "@repo/ui/input";
+import { GlassPanel } from "@repo/ui/glass-panel";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 import type { Theme } from "@repo/ui/theme-types";
@@ -49,8 +50,9 @@ export function HomePage() {
   };
 
   return (
-    <Wrapper>
-      <Input
+    <GlassPanel>
+      <Wrapper>
+        <Input
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
@@ -71,6 +73,7 @@ export function HomePage() {
           gRPC: {grpcError}
         </ErrorMessage>
       )}
-    </Wrapper>
+      </Wrapper>
+    </GlassPanel>
   );
 }
