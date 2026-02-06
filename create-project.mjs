@@ -59,8 +59,20 @@ async function main() {
     process.exit(1);
   }
 
+  let useDefaults = yesMode;
+  if (!yesMode) {
+    const setupChoice = await select(
+      `${colors.yellow}Use default setup or configure project?${colors.reset}`,
+      [
+        { label: `${icons.check} Use defaults (skip remaining questions)`, value: 'defaults' },
+        { label: `${icons.gear} Configure project (answer setup questions)`, value: 'configure' },
+      ]
+    );
+    useDefaults = setupChoice === 'defaults';
+  }
+
   let scope;
-  if (yesMode) {
+  if (yesMode || useDefaults) {
     scope = '@repo';
   } else {
     const scopeInput = await question(`${colors.cyan}${icons.package} Package scope${colors.reset} (e.g., @myorg) [@repo]: `);
@@ -85,7 +97,7 @@ async function main() {
   const repoNameSnake = toSnakeCase(repoName.trim());
   let envConfig = null;
 
-  if (!yesMode) {
+  if (!yesMode && !useDefaults) {
     let confirmed = false;
     while (!confirmed) {
       console.clear();
