@@ -64,8 +64,10 @@ The installed script is placed in Deno's bin directory (e.g. `~/.deno/bin`). Ens
 To upgrade to the latest version, re-run the install command with the `--force` (`-f`) flag:
 
 ```bash
-deno install -g -f -n ritcreate -A jsr:@ritual/ritcreate
+deno install -g -f --reload -n ritcreate -A jsr:@ritual/ritcreate
 ```
+
+The `--reload` flag clears Deno's module cache so it fetches the latest version from the registry.
 
 ## Testing the template
 
