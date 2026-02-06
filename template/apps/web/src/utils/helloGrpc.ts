@@ -27,3 +27,12 @@ export async function getHelloMessage(
   const response: HelloResponse = await client.SayHello({ name: name ?? "" });
   return { message: response.message };
 }
+
+export interface GetAddResult {
+  sum: number;
+}
+
+export async function getAdd(a: number, b: number): Promise<GetAddResult> {
+  const response = await client.Add({ a, b });
+  return { sum: response.sum ?? 0 };
+}

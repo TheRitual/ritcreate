@@ -19,6 +19,15 @@ export interface HelloResponse {
   message: string;
 }
 
+export interface AddRequest {
+  a: number;
+  b: number;
+}
+
+export interface AddResponse {
+  sum: number;
+}
+
 function createBaseHelloRequest(): HelloRequest {
   return { name: "" };
 }
@@ -153,11 +162,167 @@ export const HelloResponse: MessageFns<HelloResponse> = {
   },
 };
 
+function createBaseAddRequest(): AddRequest {
+  return { a: 0, b: 0 };
+}
+
+export const AddRequest: MessageFns<AddRequest> = {
+  encode(
+    message: AddRequest,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.a !== 0) {
+      writer.uint32(8).int32(message.a);
+    }
+    if (message.b !== 0) {
+      writer.uint32(16).int32(message.b);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): AddRequest {
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.a = reader.int32();
+          continue;
+        }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.b = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddRequest {
+    return {
+      a: isSet(object.a) ? globalThis.Number(object.a) : 0,
+      b: isSet(object.b) ? globalThis.Number(object.b) : 0,
+    };
+  },
+
+  toJSON(message: AddRequest): unknown {
+    const obj: any = {};
+    if (message.a !== 0) {
+      obj.a = Math.round(message.a);
+    }
+    if (message.b !== 0) {
+      obj.b = Math.round(message.b);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AddRequest>, I>>(
+    base?: I,
+  ): AddRequest {
+    return AddRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<AddRequest>, I>>(
+    object: I,
+  ): AddRequest {
+    const message = createBaseAddRequest();
+    message.a = object.a ?? 0;
+    message.b = object.b ?? 0;
+    return message;
+  },
+};
+
+function createBaseAddResponse(): AddResponse {
+  return { sum: 0 };
+}
+
+export const AddResponse: MessageFns<AddResponse> = {
+  encode(
+    message: AddResponse,
+    writer: BinaryWriter = new BinaryWriter(),
+  ): BinaryWriter {
+    if (message.sum !== 0) {
+      writer.uint32(8).int32(message.sum);
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): AddResponse {
+    const reader =
+      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 8) {
+            break;
+          }
+
+          message.sum = reader.int32();
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddResponse {
+    return {
+      sum: isSet(object.sum) ? globalThis.Number(object.sum) : 0,
+    };
+  },
+
+  toJSON(message: AddResponse): unknown {
+    const obj: any = {};
+    if (message.sum !== 0) {
+      obj.sum = Math.round(message.sum);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<AddResponse>, I>>(
+    base?: I,
+  ): AddResponse {
+    return AddResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<AddResponse>, I>>(
+    object: I,
+  ): AddResponse {
+    const message = createBaseAddResponse();
+    message.sum = object.sum ?? 0;
+    return message;
+  },
+};
+
 export interface Hello {
   SayHello(
     request: DeepPartial<HelloRequest>,
     metadata?: grpc.Metadata,
   ): Promise<HelloResponse>;
+  Add(
+    request: DeepPartial<AddRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<AddResponse>;
 }
 
 export class HelloClientImpl implements Hello {
@@ -166,6 +331,7 @@ export class HelloClientImpl implements Hello {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.SayHello = this.SayHello.bind(this);
+    this.Add = this.Add.bind(this);
   }
 
   SayHello(
@@ -175,6 +341,17 @@ export class HelloClientImpl implements Hello {
     return this.rpc.unary(
       HelloSayHelloDesc,
       HelloRequest.fromPartial(request),
+      metadata,
+    );
+  }
+
+  Add(
+    request: DeepPartial<AddRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<AddResponse> {
+    return this.rpc.unary(
+      HelloAddDesc,
+      AddRequest.fromPartial(request),
       metadata,
     );
   }
@@ -195,6 +372,29 @@ export const HelloSayHelloDesc: UnaryMethodDefinitionish = {
   responseType: {
     deserializeBinary(data: Uint8Array) {
       const value = HelloResponse.decode(data);
+      return {
+        ...value,
+        toObject() {
+          return value;
+        },
+      };
+    },
+  } as any,
+};
+
+export const HelloAddDesc: UnaryMethodDefinitionish = {
+  methodName: "Add",
+  service: HelloDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return AddRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      const value = AddResponse.decode(data);
       return {
         ...value,
         toObject() {
