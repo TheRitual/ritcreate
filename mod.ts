@@ -75,14 +75,26 @@ if (isFileUrl && typeof process !== "undefined") {
       );
     }
     const manifest: string[] = await manifestRes.json();
+    const failed: string[] = [];
     for (const rel of manifest) {
       const fileUrl = new URL(rel, baseUrl).href;
       const fileRes = await fetch(fileUrl);
-      if (!fileRes.ok) continue;
+      if (!fileRes.ok) {
+        failed.push(rel);
+        continue;
+      }
       const outPath = resolve(tmp, rel);
       await Deno.mkdir(dirname(outPath), { recursive: true });
       const buf = await fileRes.arrayBuffer();
       await Deno.writeFile(outPath, new Uint8Array(buf));
+    }
+    if (failed.length > 0) {
+      console.warn(
+        `\x1b[33m⚠️  Warning: ${failed.length} template file(s) could not be fetched:\x1b[0m`,
+      );
+      for (const f of failed) {
+        console.warn(`   - ${f}`);
+      }
     }
     const cmd = new Deno.Command("node", {
       args: ["create-project.mjs", projectName, defaultDir],

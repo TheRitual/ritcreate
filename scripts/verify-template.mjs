@@ -49,7 +49,8 @@ function copyDirectory(src, dest, replacements = {}) {
         continue;
       }
       const srcPath = join(src, entry);
-      const destPath = join(dest, entry);
+      const destEntry = entry === "_gitignore" ? ".gitignore" : entry;
+      const destPath = join(dest, destEntry);
       copyDirectory(srcPath, destPath, replacements);
     }
   } else {
