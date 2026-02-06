@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const templateDir = join(root, "template");
+const libDir = join(root, "lib");
 
 const IGNORED = new Set(["node_modules", "dist", ".turbo", ".git", "package-lock.json"]);
 
@@ -26,8 +27,14 @@ function collectFiles(dir, base) {
   return results;
 }
 
-const files = collectFiles(templateDir, "template").sort();
-const manifestPath = join(root, "template-manifest.json");
-writeFileSync(manifestPath, JSON.stringify(files, null, 2) + "\n", "utf-8");
+const rootFiles = ["create-project.mjs", "jsr.json", "package.json"];
+const libFiles = collectFiles(libDir, "lib").sort();
+const templateFiles = collectFiles(templateDir, "template").sort();
 
-console.log(`Generated template-manifest.json with ${files.length} files.`);
+const allFiles = [...rootFiles, ...libFiles, ...templateFiles];
+const manifestPath = join(root, "template-manifest.json");
+writeFileSync(manifestPath, JSON.stringify(allFiles, null, 2) + "\n", "utf-8");
+
+console.log(
+  `Generated template-manifest.json with ${allFiles.length} files (${rootFiles.length} root, ${libFiles.length} lib, ${templateFiles.length} template).`
+);

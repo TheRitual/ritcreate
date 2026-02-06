@@ -58,14 +58,6 @@ if (isFileUrl && typeof process !== "undefined") {
   const baseUrl = new URL(".", import.meta.url).href;
   const tmp = await Deno.makeTempDir({ prefix: "ritual-create-" });
   try {
-    const mjsRes = await fetch(new URL("create-project.mjs", baseUrl).href);
-    if (!mjsRes.ok) {
-      throw new Error(`Failed to fetch create-project.mjs: ${mjsRes.status}`);
-    }
-    await Deno.writeTextFile(
-      resolve(tmp, "create-project.mjs"),
-      await mjsRes.text(),
-    );
     const manifestRes = await fetch(
       new URL("template-manifest.json", baseUrl).href,
     );
@@ -90,7 +82,7 @@ if (isFileUrl && typeof process !== "undefined") {
     }
     if (failed.length > 0) {
       console.warn(
-        `\x1b[33m⚠️  Warning: ${failed.length} template file(s) could not be fetched:\x1b[0m`,
+        `\x1b[33m⚠️  Warning: ${failed.length} file(s) could not be fetched:\x1b[0m`,
       );
       for (const f of failed) {
         console.warn(`   - ${f}`);

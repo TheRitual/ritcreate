@@ -1,4 +1,12 @@
 [
+  "create-project.mjs",
+  "jsr.json",
+  "package.json",
+  "lib/apply-config.mjs",
+  "lib/fs-utils.mjs",
+  "lib/prompts.mjs",
+  "lib/text.mjs",
+  "lib/ui.mjs",
   "template/.nvmrc",
   "template/README.md",
   "template/_gitignore",
