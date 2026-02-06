@@ -8,6 +8,7 @@ import { toKebabCase, toPascalCase, toSnakeCase } from './lib/text.mjs';
 import { copyDirectory, processAllFiles } from './lib/fs-utils.mjs';
 import { getVersion, printHeader, printSummary, gatherConfig } from './lib/prompts.mjs';
 import { applyConfig } from './lib/apply-config.mjs';
+import { gatherEnvConfig, buildEnvFileContent, getDefaultEnv } from './lib/env-config.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -44,12 +45,9 @@ async function main() {
       : resolve(toKebabCase(repoName));
     fullProjectPath = defaultPath;
   } else {
-    repoName = await question(`${colors.cyan}${icons.folder} Repository name${colors.reset} (e.g., my-awesome-project): `);
-    if (!repoName.trim()) {
-      log('Repository name is required', colors.red, icons.cross);
-      process.exit(1);
-    }
-    repoName = repoName.trim();
+    const defaultName = 'my-awesome-project';
+    const repoNameInput = await question(`${colors.cyan}${icons.folder} Repository name${colors.reset} [${defaultName}]: `);
+    repoName = repoNameInput.trim() || defaultName;
     const defaultPath = toKebabCase(repoName);
     const projectPathInput = await question(`${colors.cyan}${icons.folder} Project path${colors.reset} [./${defaultPath}]: `);
     const projectPath = projectPathInput.trim() || defaultPath;
@@ -84,6 +82,8 @@ async function main() {
   };
 
   const repoNameKebab = toKebabCase(repoName.trim());
+  const repoNameSnake = toSnakeCase(repoName.trim());
+  let envConfig = null;
 
   if (!yesMode) {
     let confirmed = false;
@@ -96,6 +96,11 @@ async function main() {
       log('\n', colors.reset, '');
 
       opts = await gatherConfig(opts);
+
+      log('\n', colors.reset, '');
+      log('Environment configuration:', colors.bright, icons.file);
+      log('', colors.reset, '');
+      envConfig = await gatherEnvConfig(repoNameSnake, opts.useDatabase, envConfig);
 
       log('\n', colors.reset, '');
       printSummary(repoNameKebab, fullProjectPath, scope, opts);
@@ -116,6 +121,7 @@ async function main() {
       }
     }
   } else {
+    envConfig = getDefaultEnv(repoNameSnake);
     log('\n', colors.reset, '');
     printSummary(repoNameKebab, fullProjectPath, scope, opts);
   }
@@ -124,7 +130,7 @@ async function main() {
     repoName: repoName.trim(),
     repoNameKebab,
     repoNamePascal: toPascalCase(repoName.trim()),
-    repoNameSnake: toSnakeCase(repoName.trim()),
+    repoNameSnake,
     scope: scope.trim(),
     projectPath: fullProjectPath,
     useDatabase: opts.useDatabase,
@@ -138,6 +144,7 @@ async function main() {
     testApi: opts.testApi,
     testWeb: opts.testWeb,
     testUI: opts.testUI,
+    envConfig,
   };
 
   log('\n', colors.reset, '');

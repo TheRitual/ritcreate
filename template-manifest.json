@@ -3,6 +3,7 @@
   "jsr.json",
   "package.json",
   "lib/apply-config.mjs",
+  "lib/env-config.mjs",
   "lib/fs-utils.mjs",
   "lib/prompts.mjs",
   "lib/text.mjs",
