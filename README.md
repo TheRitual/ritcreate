@@ -7,16 +7,12 @@ Template generator for monorepo projects with NestJS, React, and gRPC.
 ### From this repository (Node)
 
 ```bash
-# Interactive: prompts for name, scope, options
 npm run create
 
-# Or run the script directly (same as above)
 node create-project.mjs
 
-# With project name (creates ./<name> by default)
 node create-project.mjs my-app
 
-# With project name and output directory
 node create-project.mjs my-app ./path/to/output
 ```
 
@@ -32,7 +28,7 @@ node create-project.mjs my-app ./my-app --yes
 
 ```bash
 npx jsr:@ritual/ritcreate my-app
-# Optional: specify output directory (default is ./my-app)
+
 npx jsr:@ritual/ritcreate my-app ./output-dir
 ```
 
@@ -40,17 +36,18 @@ npx jsr:@ritual/ritcreate my-app ./output-dir
 
 ```bash
 deno run -A jsr:@ritual/ritcreate my-app
+
 deno run -A jsr:@ritual/ritcreate my-app ./output-dir
 ```
 
-Use `-A` (allow all) or at least `--allow-read --allow-write --allow-net`.
+Use `-A` (allow all) or at least `--allow-read --allow-write --allow-net --allow-run`.
 
-### Install globally with Deno (@ritual/ritcreate)
+### Install globally with Deno
 
-Install the generator as a global `ritcreate` command so you can run it from anywhere:
+Install the generator as a global `ritcreate` command:
 
 ```bash
-deno install -n ritcreate -A jsr:@ritual/ritcreate
+deno install -g -n ritcreate -A jsr:@ritual/ritcreate
 ```
 
 Then create projects with:
@@ -60,13 +57,15 @@ ritcreate my-app
 ritcreate my-app ./output-dir
 ```
 
-To allow only the required permissions instead of `-A`:
+The installed script is placed in Deno's bin directory (e.g. `~/.deno/bin`). Ensure that directory is on your `PATH`.
+
+### Upgrading the global Deno package
+
+To upgrade to the latest version, re-run the install command with the `--force` (`-f`) flag:
 
 ```bash
-deno install -n ritcreate --allow-read --allow-write --allow-net jsr:@ritual/ritcreate
+deno install -g -f -n ritcreate -A jsr:@ritual/ritcreate
 ```
-
-The installed script is placed in Deno’s bin directory (e.g. `~/.deno/bin`). Ensure that directory is on your `PATH`.
 
 ## Testing the template
 
@@ -113,7 +112,6 @@ After creating a project (e.g. with `npm run create` or `ritcreate my-app`):
 
 ```bash
 cd my-app
-npm install
 npm run build
 npm run dev
 ```
