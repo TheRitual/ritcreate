@@ -12,14 +12,14 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "node scripts/sync-jsr-version.js",
+        "prepareCmd": "node scripts/sync-jsr-version.js && node scripts/generate-manifest.mjs",
         "publishCmd": "npx jsr publish"
       }
     ],
     [
       "@semantic-release/git",
       {
-        "assets": ["package.json", "package-lock.json", "jsr.json", "CHANGELOG.md"],
+        "assets": ["package.json", "package-lock.json", "jsr.json", "template-manifest.json", "CHANGELOG.md"],
         "message": "chore(release): ${nextRelease.version} [skip actions]\n\n${nextRelease.notes}"
       }
     ],

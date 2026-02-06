@@ -7,6 +7,7 @@
   "scripts": {
     "create": "node create-project.mjs",
     "dev": "node scripts/dev.mjs",
+    "generate-manifest": "node scripts/generate-manifest.mjs",
     "release": "semantic-release",
     "verify-template": "node scripts/verify-template.mjs"
   },

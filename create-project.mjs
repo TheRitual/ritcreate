@@ -369,10 +369,22 @@ async function main() {
         writeFileSync(rootPackageJson, content);
       }
 
-      const dockerCompose = join(config.projectPath, 'docker-compose.dev.yml');
-      if (existsSync(dockerCompose)) {
-        const fs = await import('fs/promises');
-        await fs.rm(dockerCompose, { force: true });
+      const devDockerFiles = [
+        'docker-compose.dev.yml',
+        'docker/envoy-grpc-web.dev.yml',
+        'docker/prometheus.yml',
+      ];
+      const fs = await import('fs/promises');
+      for (const file of devDockerFiles) {
+        const filePath = join(config.projectPath, file);
+        if (existsSync(filePath)) {
+          await fs.rm(filePath, { force: true });
+        }
+      }
+
+      const dockerDir = join(config.projectPath, 'docker');
+      if (existsSync(dockerDir) && readdirSync(dockerDir).length === 0) {
+        await fs.rm(dockerDir, { recursive: true, force: true });
       }
     }
 
@@ -525,14 +537,20 @@ async function main() {
     const dockerFiles = [
       'apps/api/Dockerfile',
       'apps/web/Dockerfile',
-      'docker-compose.local-prod.yml',
+      'docker-compose.prod.yml',
+      'docker/envoy-grpc-web.prod.yml',
     ];
+    const fs = await import('fs/promises');
     for (const file of dockerFiles) {
       const filePath = join(config.projectPath, file);
       if (existsSync(filePath)) {
-        const fs = await import('fs/promises');
         await fs.rm(filePath, { force: true });
       }
+    }
+
+    const dockerDir = join(config.projectPath, 'docker');
+    if (existsSync(dockerDir) && readdirSync(dockerDir).length === 0) {
+      await fs.rm(dockerDir, { recursive: true, force: true });
     }
   }
 
